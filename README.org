@@ -1,0 +1,191 @@
+#+title: TWIDDLE
+
+* TWIDDLE
+
+A library for generating [[https://en.wikipedia.org/wiki/Combination][k-combinations]].
+
+This provides a PHP implementation of Phillip J Chase's TWIDDLE, `Algorithm 382:
+Combinations of M out of N Objects [G6]', [[https://dl.acm.org/doi/10.1145/362384.362502][Communications of the Association for
+Computing Machinery 13:6:368 (1970)]].
+
+See the C implementation by Matthew Belmonte (and original license), [[file:src/twiddle.c][twiddle.c]]
+in the =src= directory. Downloaded from https://netlib.org/toms-2014-06-10/382,
+2023-02-19. This implementation is largely a transliteration from the C.
+
+Licensed under the [[file:LICENSE][Apache-2.0 license]].
+
+** Usage
+
+#+name: init
+#+begin_src php
+declare(strict_types=1);
+
+require __DIR__ . "/vendor/autoload.php";
+
+use Leinster\Twiddle;
+#+end_src
+
+*** Generating combinations from an array
+
+Use [[file:src/SetTwiddler.php][SetTwiddler]] to generate combinations from an array:
+
+#+begin_src php :noweb yes
+<<init>>
+
+$k = 2;
+$twiddler = new Twiddle\SetTwiddler($k, [0, 1, 2]);
+foreach ($twiddler as $combination) {
+    printf("%s\n", json_encode($combination));
+}
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[1,2]
+[0,2]
+[0,1]
+#+end_example
+
+You can use [[file:src/SetTwiddler.php::public function toArray(): array][toArray]] rather than iterating:
+
+#+begin_src php :noweb yes
+<<init>>
+
+$k = 2;
+$twiddler = new Twiddle\SetTwiddler($k, ["A", "B", "C"]);
+printf("%.0f\n", $twiddler->count());
+printf("%s\n", json_encode($twiddler->toArray()));
+#+end_src
+
+#+RESULTS:
+#+begin_example
+3
+[["B","C"],["A","C"],["A","B"]]
+#+end_example
+
+Although named =$set= there is no restriction on the contents of the input array, duplicates are fine:
+
+#+begin_src php :noweb yes
+<<init>>
+
+$k = 2;
+$twiddler = new Twiddle\SetTwiddler($k, [0, 0, 1]);
+printf("%s\n", json_encode($twiddler->toArray()));
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[[0,1],[0,1],[0,0]]
+#+end_example
+
+The =count= method returns ${n \choose k}$ as a float.
+
+#+begin_src php :noweb yes
+<<init>>
+
+$k = 10;
+$twiddler = new Twiddle\SetTwiddler($k, range(0, 999));
+printf("%.0f\n", $twiddler->count());
+printf("%d\n", PHP_INT_MAX);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+263409560461970249875456
+9223372036854775807
+#+end_example
+
+*** Generating bit sequences
+
+You can use [[file:src/BitTwiddler.php][BitTwiddler]] to generate n-length arrays containing k ones and (n - k) zeros:
+
+#+begin_src php :noweb yes
+<<init>>
+
+$k = 2;
+$n = 4;
+$twiddler = new Twiddle\BitTwiddler($k, $n);
+printf("%.0f\n", $twiddler->count());
+foreach ($twiddler as $combination) {
+    printf("%s\n", json_encode($combination));
+}
+#+end_src
+
+#+RESULTS:
+#+begin_example
+6
+[0,0,1,1]
+[1,0,0,1]
+[0,1,0,1]
+[0,1,1,0]
+[1,0,1,0]
+[1,1,0,0]
+#+end_example
+
+*** Parameter restrictions
+
+In both cases, and with n the length of =$set= for =SetTwiddler=, we must have $k \in \mathbb{N}^0,\ n \in \mathbb{N}^+,\ k \le n$.
+
+#+begin_src php :noweb yes
+<<init>>
+
+$k = 0;
+var_dump((new Twiddle\SetTwiddler($k, [0, 1, 2]))->toArray());
+var_dump((new Twiddle\BitTwiddler($k, 3))->toArray());
+#+end_src
+
+#+RESULTS:
+#+begin_example
+array(1) {
+  [0]=>
+  array(0) {
+  }
+}
+array(1) {
+  [0]=>
+  array(3) {
+    [0]=>
+    int(0)
+    [1]=>
+    int(0)
+    [2]=>
+    int(0)
+  }
+}
+#+end_example
+
+*** Transformers
+
+You can use the [[file:src/functions.php][transformer functions]] (or another [[https://www.php.net/manual/en/language.types.callable.php][callable]]) to modify the output from the generators.
+
+#+begin_src php :noweb yes
+<<init>>
+
+use function Leinster\Twiddle\Functions\stringTransformer;
+
+$twiddler = new Twiddle\SetTwiddler(
+    2,
+    str_split("ABCDEFG"),
+    stringTransformer()
+);
+printf("%s\n", json_encode($twiddler->toArray()));
+#+end_src
+
+#+RESULTS:
+#+begin_example
+["FG","AG","BG","CG","DG","EG","EF","AF","BF","CF","DF","DE","AE","BE","CE","CD","AD","BD","BC","AC","AB"]
+#+end_example
+
+#+begin_src php :noweb yes
+<<init>>
+
+use function Leinster\Twiddle\Functions\intTransformer;
+
+$twiddler = new Twiddle\BitTwiddler(3, 5, intTransformer());
+printf("%s\n", json_encode($twiddler->toArray()));
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[7,19,11,13,21,25,28,26,22,14]
+#+end_example

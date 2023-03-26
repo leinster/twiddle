@@ -1,0 +1,23 @@
+{
+  "name": "leinster/twiddle",
+  "description": "Generates k-combinations. An implementation of Chase's TWIDDLE, https://dl.acm.org/doi/10.1145/362384.362502, transliterated from the C implementation by Matthew Belmonte.",
+  "keywords": ["combinations", "k-combinations", "combinatorics"],
+  "readme": "README.org",
+  "license": ["Apache-2.0"],
+  "autoload": {
+    "psr-4": { "Leinster\\Twiddle\\": "src/" },
+    "files": ["src/functions.php"]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "phpstan/phpstan": "^1.10",
+    "symfony/var-dumper": "^6.2"
+  },
+  "require": {
+    "php": "^8.2",
+    "markrogoyski/math-php": "^2.7"
+  },
+  "authors": [
+    { "name": "Jonathon Ramsey", "email": "jonathon.ramsey@gmail.com" }
+  ]
+}
