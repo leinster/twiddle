@@ -37,10 +37,10 @@ readonly final class BitTwiddler implements IteratorAggregate
     public function getIterator(): Traversable
     {
         $this->twiddler->reset();
-        $bits = array_merge(
-            array_fill(0, $this->n - $this->k, 0),
-            array_fill(0, $this->k, 1)
-        );
+        $bits = [
+            ...array_fill(0, $this->n - $this->k, 0),
+            ...array_fill(0, $this->k, 1),
+        ];
         yield ($this->transformer)($bits);
 
         foreach ($this->twiddler as [$x, $y, $z]) {

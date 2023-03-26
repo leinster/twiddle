@@ -30,8 +30,10 @@ final class Twiddler implements IteratorAggregate
     private int $y;
     private int $z;
 
-    public function __construct(private int $n, private int $k)
-    {
+    public function __construct(
+        private readonly int $n,
+        private readonly int $k
+    ) {
         $this->validateParameters();
         $this->reset();
     }
