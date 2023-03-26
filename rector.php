@@ -18,5 +18,6 @@ return static function (RectorConfig $rectorConfig): void {
         // SetList::NAMING,
         SetList::PRIVATIZATION,
         // SetList::PSR_4,
+        SetList::TYPE_DECLARATION,
     ]);
 };

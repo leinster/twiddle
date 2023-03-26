@@ -11,19 +11,19 @@ function binomialCoefficient(int $n, int $k): float
 /** @return callable(mixed[]): mixed[] */
 function identityTransformer(): callable
 {
-    return static fn(array $combination) => $combination;
+    return static fn(array $combination): array => $combination;
 }
 
 /** @return callable(mixed[]): string */
 function stringTransformer(): callable
 {
-    return static fn(array $combination) => \implode("", $combination);
+    return static fn(array $combination): string => \implode("", $combination);
 }
 
 /** @return callable(int[]): (int|float) */
 function intTransformer(): callable
 {
-    return static fn(array $bits) => \bindec(
-        \Leinster\Twiddle\Functions\stringTransformer()($bits)
+    return static fn(array $bits): float|int => \bindec(
+        stringTransformer()($bits)
     );
 }
