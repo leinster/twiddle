@@ -44,7 +44,8 @@ readonly final class BitTwiddler implements IteratorAggregate
         yield ($this->transformer)($bits);
 
         foreach ($this->twiddler as [$x, $y, $z]) {
-            [$bits[$x], $bits[$y]] = [1, 0];
+            $bits[$x] = 1;
+            $bits[$y] = 0;
             yield ($this->transformer)($bits);
         }
     }
