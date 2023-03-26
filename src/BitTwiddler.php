@@ -16,6 +16,7 @@ use Traversable;
 readonly final class BitTwiddler implements IteratorAggregate
 {
     private Twiddler $twiddler;
+
     private Closure $transformer;
 
     public function __construct(

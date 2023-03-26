@@ -15,17 +15,17 @@ function binomialCoefficient(int $n, int $k): float
 /** @return callable(mixed[]): mixed[] */
 function identityTransformer(): callable
 {
-    return fn(array $combination) => $combination;
+    return static fn(array $combination) => $combination;
 }
 
 /** @return callable(mixed[]): string */
 function stringTransformer(): callable
 {
-    return fn(array $combination) => implode("", $combination);
+    return static fn(array $combination) => implode("", $combination);
 }
 
 /** @return callable(int[]): (int|float) */
 function intTransformer(): callable
 {
-    return fn(array $bits) => bindec(stringTransformer()($bits));
+    return static fn(array $bits) => bindec(stringTransformer()($bits));
 }

@@ -25,9 +25,12 @@ use Traversable;
 final class Twiddler implements IteratorAggregate
 {
     /** @var int[] */
-    private array $p;
+    private array $p = [];
+
     private int $x;
+
     private int $y;
+
     private int $z;
 
     public function __construct(
@@ -53,9 +56,10 @@ final class Twiddler implements IteratorAggregate
         $this->p = array_fill(0, $this->n + 2, 0);
         $this->p[0] = $this->n + 1;
         $this->p[$this->n + 1] = -2;
-        for ($i = $this->n - $this->k + 1; $i < $this->n + 1; $i++) {
+        for ($i = $this->n - $this->k + 1; $i < $this->n + 1; ++$i) {
             $this->p[$i] = $i + $this->k - $this->n;
         }
+
         if ($this->k === 0) {
             $this->p[1] = 1;
         }
@@ -66,9 +70,11 @@ final class Twiddler implements IteratorAggregate
         if ($this->n < 1) {
             throw new Exception("n must be greater than or equal to 1");
         }
+
         if ($this->k < 0) {
             throw new Exception("k must be a positive integer");
         }
+
         if ($this->k > $this->n) {
             throw new Exception("k must be less than or equal to n");
         }
@@ -118,26 +124,31 @@ final class Twiddler implements IteratorAggregate
         // L1
         $j = 1;
         while ($this->p[$j] <= 0) {
-            $j++;
+            ++$j;
         }
+
         if ($this->p[$j - 1] === 0) {
-            for ($i = $j - 1; $i > 1; $i--) {
+            for ($i = $j - 1; $i > 1; --$i) {
                 $this->p[$i] = -1;
             }
+
             $this->p[$j] = 0;
             $this->p[1] = 1;
-            $this->x = $this->z = 0;
+            $this->x = 0;
+            $this->z = 0;
             $this->y = $j - 1;
             return false; // L4
         }
+
         if ($j > 1) {
             $this->p[$j - 1] = 0;
         }
 
         // L2
         do {
-            $j++;
+            ++$j;
         } while ($this->p[$j] > 0);
+
         $i = $j;
         $k = $j - 1;
 
@@ -145,6 +156,7 @@ final class Twiddler implements IteratorAggregate
         while ($this->p[$i] === 0) {
             $this->p[$i++] = -1;
         }
+
         if ($this->p[$i] === -1) {
             $this->p[$i] = $this->p[$k];
             $this->z = $this->p[$k] - 1;

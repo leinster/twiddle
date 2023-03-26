@@ -16,7 +16,9 @@ use Traversable;
 readonly final class SetTwiddler implements IteratorAggregate
 {
     private int $n;
+
     private Twiddler $twiddler;
+
     private Closure $transformer;
 
     /** @param mixed[] $set */
