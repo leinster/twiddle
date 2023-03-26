@@ -14,10 +14,11 @@ return static function (RectorConfig $rectorConfig): void {
         LevelSetList::UP_TO_PHP_82,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
-        // SetList::DEAD_CODE,
-        // SetList::NAMING,
+        SetList::DEAD_CODE,
+        SetList::NAMING,
         SetList::PRIVATIZATION,
         // SetList::PSR_4,
         SetList::TYPE_DECLARATION,
+        SetList::EARLY_RETURN,
     ]);
 };
