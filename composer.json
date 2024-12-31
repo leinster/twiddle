@@ -1,6 +1,6 @@
 {
   "name": "leinster/twiddle",
-  "description": "Generates k-combinations. An implementation of Chase's TWIDDLE, https://dl.acm.org/doi/10.1145/362384.362502, transliterated from the C implementation by Matthew Belmonte.",
+  "description": "Generates k-combinations. A PHP implementation of Chase's TWIDDLE, https://dl.acm.org/doi/10.1145/362384.362502, transliterated from Matthew Belmonte's C implementation.",
   "keywords": ["combinations", "k-combinations", "combinatorics"],
   "readme": "README.org",
   "license": ["Apache-2.0"],
