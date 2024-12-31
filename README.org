@@ -27,7 +27,7 @@ use Leinster\Twiddle;
 
 Use [[file:src/SetTwiddler.php][SetTwiddler]] to generate combinations from an array:
 
-#+begin_src php :noweb yes
+#+begin_src php :noweb yes :exports both
 <<common-pulled-in-by-noweb>>
 
 $k = 2;
@@ -46,7 +46,7 @@ foreach ($twiddler as $combination) {
 
 You can use [[file:src/SetTwiddler.php::public function toArray(): array][toArray]] rather than iterating:
 
-#+begin_src php :noweb yes
+#+begin_src php :noweb yes :exports both
 <<common-pulled-in-by-noweb>>
 
 $k = 2;
@@ -63,7 +63,7 @@ printf("%s\n", json_encode($twiddler->toArray()));
 
 Duplicate values in the input array are treated as distinct, clients should supply unique values if required:
 
-#+begin_src php :noweb yes
+#+begin_src php :noweb yes :exports both
 <<common-pulled-in-by-noweb>>
 
 $k = 2;
@@ -81,7 +81,7 @@ printf("%s\n", json_encode($twiddler->toArray()));
 
 The =count= method returns ${n \choose k}$ as a float.
 
-#+begin_src php :noweb yes
+#+begin_src php :noweb yes :exports both
 <<common-pulled-in-by-noweb>>
 
 $k = 10;
@@ -100,7 +100,7 @@ printf("%d\n", PHP_INT_MAX);
 
 You can use [[file:src/BitTwiddler.php][BitTwiddler]] to generate $n$ length arrays containing $k$ ones and $(n - k)$ zeros:
 
-#+begin_src php :noweb yes
+#+begin_src php :noweb yes :exports both
 <<common-pulled-in-by-noweb>>
 
 $k = 2;
@@ -131,7 +131,7 @@ In both cases, and with $n$ the length of =$set= for =SetTwiddler=, we must have
 
 You can use the [[file:src/functions.php][transformer functions]] (or another [[https://www.php.net/manual/en/language.types.callable.php][callable]]) to modify the output from the generators.
 
-#+begin_src php :noweb yes
+#+begin_src php :noweb yes :exports both
 <<common-pulled-in-by-noweb>>
 
 use function Leinster\Twiddle\Functions\stringTransformer;
@@ -149,7 +149,7 @@ printf("%s\n", json_encode($twiddler->toArray()));
 ["FG","AG","BG","CG","DG","EG","EF","AF","BF","CF","DF","DE","AE","BE","CE","CD","AD","BD","BC","AC","AB"]
 #+end_example
 
-#+begin_src php :noweb yes
+#+begin_src php :noweb yes :exports both
 <<common-pulled-in-by-noweb>>
 
 use function Leinster\Twiddle\Functions\intTransformer;
