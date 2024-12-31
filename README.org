@@ -4,13 +4,9 @@
 
 A library for generating [[https://en.wikipedia.org/wiki/Combination][k-combinations]].
 
-This provides a PHP implementation of Phillip J Chase's TWIDDLE, `Algorithm 382:
-Combinations of M out of N Objects [G6]', [[https://dl.acm.org/doi/10.1145/362384.362502][Communications of the Association for
-Computing Machinery 13:6:368 (1970)]].
+This provides a PHP implementation of Phillip J Chase's TWIDDLE, `Algorithm 382: Combinations of M out of N Objects [G6]', [[https://dl.acm.org/doi/10.1145/362384.362502][Communications of the Association for Computing Machinery 13:6:368 (1970)]].
 
-See the C implementation by Matthew Belmonte (and original license), [[file:src/twiddle.c][twiddle.c]]
-in the =src= directory. Downloaded from https://netlib.org/toms-2014-06-10/382,
-2023-02-19. This implementation is largely a transliteration from the C.
+See the C implementation by Matthew Belmonte (and original license), [[file:src/twiddle.c][twiddle.c]] in the =src= directory. Downloaded from https://netlib.org/toms-2014-06-10/382, 2023-02-19. This implementation is largely a transliteration from the C.
 
 Licensed under the [[file:LICENSE][Apache-2.0 license]].
 
@@ -63,7 +59,7 @@ printf("%s\n", json_encode($twiddler->toArray()));
 [["B","C"],["A","C"],["A","B"]]
 #+end_example
 
-Although named =$set= there is no restriction on the contents of the input array, duplicates are fine:
+Duplicates in the input array are ignored:
 
 #+begin_src php :noweb yes
 <<common-pulled-in-by-noweb>>
