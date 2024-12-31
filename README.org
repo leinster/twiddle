@@ -61,7 +61,7 @@ printf("%s\n", json_encode($twiddler->toArray()));
 [["B","C"],["A","C"],["A","B"]]
 #+end_example
 
-Duplicates in the input array are ignored:
+Duplicate values in the input array are treated as distinct, clients should supply unique values if required:
 
 #+begin_src php :noweb yes
 <<common-pulled-in-by-noweb>>
@@ -69,11 +69,14 @@ Duplicates in the input array are ignored:
 $k = 2;
 $twiddler = new Twiddle\SetTwiddler($k, [0, 0, 1]);
 printf("%s\n", json_encode($twiddler->toArray()));
+$twiddler = new Twiddle\SetTwiddler($k, ["A", "B", "B"]);
+printf("%s\n", json_encode($twiddler->toArray()));
 #+end_src
 
 #+RESULTS:
 #+begin_example
 [[0,1],[0,1],[0,0]]
+[["B","B"],["A","B"],["A","B"]]
 #+end_example
 
 The =count= method returns ${n \choose k}$ as a float.
@@ -123,34 +126,6 @@ foreach ($twiddler as $combination) {
 *** Parameter restrictions
 
 In both cases, and with $n$ the length of =$set= for =SetTwiddler=, we must have $k \in \mathbb{N}^0,\ n \in \mathbb{N}^+,\ k \le n$.
-
-#+begin_src php :noweb yes
-<<common-pulled-in-by-noweb>>
-
-$k = 0;
-var_dump((new Twiddle\SetTwiddler($k, [0, 1, 2]))->toArray());
-var_dump((new Twiddle\BitTwiddler($k, 3))->toArray());
-#+end_src
-
-#+RESULTS:
-#+begin_example
-array(1) {
-  [0]=>
-  array(0) {
-  }
-}
-array(1) {
-  [0]=>
-  array(3) {
-    [0]=>
-    int(0)
-    [1]=>
-    int(0)
-    [2]=>
-    int(0)
-  }
-}
-#+end_example
 
 *** Transformers
 

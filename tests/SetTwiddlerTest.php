@@ -41,7 +41,7 @@ final class SetTwiddlerTest extends TestCase
     public function test1Choose1IsExhaustive(): void
     {
         $setTwiddler = new SetTwiddler(1, ["A"]);
-        $this->assertEquals(1, $setTwiddler->Count());
+        $this->assertEquals(1, $setTwiddler->count());
         $this->assertEquals([["A"]], $setTwiddler->toArray());
     }
 
@@ -77,5 +77,12 @@ final class SetTwiddlerTest extends TestCase
         $this->assertEquals("UVWXYZ", $combinations[0]);
         $this->assertEquals($combinations, array_unique($combinations));
         $this->assertEquals($setTwiddler->count(), count($combinations));
+    }
+
+    public function testDuplicateValuesAreTreatedAsDistinct(): void
+    {
+        $setTwiddler = new SetTwiddler(2, [0, 0, 1]);
+        $this->assertEquals(3, $setTwiddler->count());
+        $this->assertEquals([[0,1], [0,1], [0, 0]], $setTwiddler->toArray());
     }
 }
