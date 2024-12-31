@@ -22,7 +22,7 @@ readonly final class BitTwiddler implements IteratorAggregate
     public function __construct(
         private int $k,
         private int $n,
-        callable $transformer = null
+        ?callable $transformer = null
     ) {
         $this->twiddler = new Twiddler($this->n, $this->k);
         $this->transformer = Closure::fromCallable(

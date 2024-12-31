@@ -22,10 +22,10 @@ readonly final class SetTwiddler implements IteratorAggregate
     private Closure $transformer;
 
     /** @param mixed[] $set */
-    function __construct(
+    public function __construct(
         private int $k,
         private array $set,
-        callable $transformer = null
+        ?callable $transformer = null
     ) {
         $this->n = count($set);
         $this->twiddler = new Twiddler($this->n, $this->k);
