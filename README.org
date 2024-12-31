@@ -1,6 +1,6 @@
 #+title: Leinster\Twiddle
 
-* Leinster\Twiddle
+* Twiddle
 
 A library for generating [[https://en.wikipedia.org/wiki/Combination][k-combinations]].
 
