@@ -33,37 +33,37 @@ final class SetTwiddlerTest extends TestCase
 
     public function test1Choose0IsExhaustive(): void
     {
-        $twiddler = new SetTwiddler(0, [1]);
-        $this->assertEquals(1, $twiddler->count());
-        $this->assertEquals([[]], $twiddler->toArray());
+        $setTwiddler = new SetTwiddler(0, [1]);
+        $this->assertEquals(1, $setTwiddler->count());
+        $this->assertEquals([[]], $setTwiddler->toArray());
     }
 
     public function test1Choose1IsExhaustive(): void
     {
-        $twiddler = new SetTwiddler(1, ["A"]);
-        $this->assertEquals(1, $twiddler->Count());
-        $this->assertEquals([["A"]], $twiddler->toArray());
+        $setTwiddler = new SetTwiddler(1, ["A"]);
+        $this->assertEquals(1, $setTwiddler->Count());
+        $this->assertEquals([["A"]], $setTwiddler->toArray());
     }
 
     public function test2Choose1IsExhaustive(): void
     {
-        $twiddler = new SetTwiddler(1, ["A", "B"]);
-        $this->assertEquals(2, $twiddler->count());
-        $this->assertEquals([["B"], ["A"]], $twiddler->toArray());
-        foreach ($twiddler as $combination) {
+        $setTwiddler = new SetTwiddler(1, ["A", "B"]);
+        $this->assertEquals(2, $setTwiddler->count());
+        $this->assertEquals([["B"], ["A"]], $setTwiddler->toArray());
+        foreach ($setTwiddler as $combination) {
             $this->assertEquals(1, count($combination));
         }
     }
 
     public function test3Choose2IsExhaustive(): void
     {
-        $twiddler = new SetTwiddler(2, ["A", "B", "C"]);
-        $this->assertEquals(3, $twiddler->count());
+        $setTwiddler = new SetTwiddler(2, ["A", "B", "C"]);
+        $this->assertEquals(3, $setTwiddler->count());
         $this->assertEquals(
             [["B", "C"], ["A", "C"], ["A", "B"]],
-            $twiddler->toArray()
+            $setTwiddler->toArray()
         );
-        foreach ($twiddler as $combination) {
+        foreach ($setTwiddler as $combination) {
             $this->assertEquals(2, count($combination));
         }
     }
@@ -71,11 +71,11 @@ final class SetTwiddlerTest extends TestCase
     public function test26Choose6IsExhaustive(): void
     {
         $letters = str_split("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        $twiddler = new SetTwiddler(6, $letters, stringTransformer());
-        $this->assertEquals(230_230, $twiddler->count());
-        $combinations = $twiddler->toArray();
+        $setTwiddler = new SetTwiddler(6, $letters, stringTransformer());
+        $this->assertEquals(230_230, $setTwiddler->count());
+        $combinations = $setTwiddler->toArray();
         $this->assertEquals("UVWXYZ", $combinations[0]);
         $this->assertEquals($combinations, array_unique($combinations));
-        $this->assertEquals($twiddler->count(), count($combinations));
+        $this->assertEquals($setTwiddler->count(), count($combinations));
     }
 }

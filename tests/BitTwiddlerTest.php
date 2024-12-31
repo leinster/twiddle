@@ -34,16 +34,16 @@ final class BitTwiddlerTest extends TestCase
 
     public function test1Choose0IsExhaustive(): void
     {
-        $twiddler = new BitTwiddler(0, 1);
-        $this->assertEquals(1, $twiddler->count());
-        $this->assertEquals([[0]], $twiddler->toArray());
+        $bitTwiddler = new BitTwiddler(0, 1);
+        $this->assertEquals(1, $bitTwiddler->count());
+        $this->assertEquals([[0]], $bitTwiddler->toArray());
     }
 
     public function test1Choose1IsExhaustive(): void
     {
-        $twiddler = new BitTwiddler(1, 1);
-        $this->assertEquals(1, $twiddler->Count());
-        $this->assertEquals([[1]], $twiddler->toArray());
+        $bitTwiddler = new BitTwiddler(1, 1);
+        $this->assertEquals(1, $bitTwiddler->Count());
+        $this->assertEquals([[1]], $bitTwiddler->toArray());
     }
 
     public function test2Choose1IsExhaustive(): void
@@ -69,10 +69,13 @@ final class BitTwiddlerTest extends TestCase
 
     public function test26Choose6IsExhaustive(): void
     {
-        $twiddler = new BitTwiddler(6, 26, intTransformer());
-        $this->assertEquals(230_230, $twiddler->count());
-        $combinations = $twiddler->toArray();
-        $this->assertEquals($combinations, array_unique($combinations));
-        $this->assertEquals($twiddler->count(), count($combinations));
+        $bitTwiddler = new BitTwiddler(6, 26, intTransformer());
+        $this->assertEquals(230_230, $bitTwiddler->count());
+        $combinations = $bitTwiddler->toArray();
+        $this->assertEquals(
+            $combinations,
+            array_unique($combinations, SORT_NUMERIC)
+        );
+        $this->assertEquals($bitTwiddler->count(), count($combinations));
     }
 }
