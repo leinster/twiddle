@@ -13,8 +13,10 @@ Licensed under the [[file:LICENSE][Apache-2.0 license]].
 ** Usage
 
 #+name: common-pulled-in-by-noweb
-#+begin_src php
+#+begin_src php :results none
 declare(strict_types=1);
+
+error_reporting(E_ALL ^ E_DEPRECATED);
 
 require __DIR__ . "/vendor/autoload.php";
 
