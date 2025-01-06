@@ -1,8 +1,7 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leinster\Twiddle;
 
-final class Exception extends \RuntimeException
-{
-}
+final class Exception extends \RuntimeException {}

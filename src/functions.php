@@ -1,11 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leinster\Twiddle\Functions;
 
+use MathPHP\Probability\Combinatorics;
+
 function binomialCoefficient(int $n, int $k): float
 {
-    return \MathPHP\Probability\Combinatorics::combinations($n, $k);
+    return Combinatorics::combinations($n, $k);
 }
 
 /** @return callable(mixed[]): mixed[] */
@@ -20,10 +23,10 @@ function stringTransformer(): callable
     return static fn(array $combination): string => \implode("", $combination);
 }
 
-/** @return callable(int[]): (int|float) */
+/** @return callable(int[]): (float|int) */
 function intTransformer(): callable
 {
     return static fn(array $bits): float|int => \bindec(
-        stringTransformer()($bits)
+        stringTransformer()($bits),
     );
 }

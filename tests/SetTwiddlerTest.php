@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leinster\Twiddle\Tests;
 
-use Leinster\Twiddle\{SetTwiddler, Exception};
-use function Leinster\Twiddle\Functions\stringTransformer;
-
+use Leinster\Twiddle\{Exception, SetTwiddler};
 use PHPUnit\Framework\TestCase;
+
+use function Leinster\Twiddle\Functions\stringTransformer;
 
 final class SetTwiddlerTest extends TestCase
 {
@@ -61,7 +62,7 @@ final class SetTwiddlerTest extends TestCase
         $this->assertEquals(3, $setTwiddler->count());
         $this->assertEquals(
             [["B", "C"], ["A", "C"], ["A", "B"]],
-            $setTwiddler->toArray()
+            $setTwiddler->toArray(),
         );
         foreach ($setTwiddler as $combination) {
             $this->assertEquals(2, count($combination));
@@ -83,6 +84,6 @@ final class SetTwiddlerTest extends TestCase
     {
         $setTwiddler = new SetTwiddler(2, [0, 0, 1]);
         $this->assertEquals(3, $setTwiddler->count());
-        $this->assertEquals([[0,1], [0,1], [0, 0]], $setTwiddler->toArray());
+        $this->assertEquals([[0, 1], [0, 1], [0, 0]], $setTwiddler->toArray());
     }
 }

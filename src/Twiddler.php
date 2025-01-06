@@ -1,15 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leinster\Twiddle;
 
-use function Leinster\Twiddle\Functions\{
-    binomialCoefficient,
-    identityTransformer
-};
-
-use IteratorAggregate;
-use Traversable;
+use function Leinster\Twiddle\Functions\binomialCoefficient;
 
 //  Phillip J Chase's TWIDDLE, `Algorithm 382: Combinations of M out of N
 //  Objects [G6]', Communications of the Association for Computing Machinery
@@ -22,9 +17,11 @@ use Traversable;
 // This implementation is largely a transliteration from the C.
 //
 /** @implements \IteratorAggregate<int, int[]> */
-final class Twiddler implements IteratorAggregate
+final class Twiddler implements \IteratorAggregate
 {
-    /** @var int[] */
+    /**
+     * @var int[]
+     */
     private array $p = [];
 
     private int $x;
@@ -35,7 +32,7 @@ final class Twiddler implements IteratorAggregate
 
     public function __construct(
         private readonly int $n,
-        private readonly int $k
+        private readonly int $k,
     ) {
         $this->validateParameters();
         $this->reset();
@@ -65,6 +62,18 @@ final class Twiddler implements IteratorAggregate
         }
     }
 
+    public function count(): float
+    {
+        return binomialCoefficient($this->n, $this->k);
+    }
+
+    public function getIterator(): \Traversable
+    {
+        while (! $this->twiddle()) {
+            yield [$this->x, $this->y, $this->z];
+        }
+    }
+
     private function validateParameters(): void
     {
         if ($this->n < 1) {
@@ -77,18 +86,6 @@ final class Twiddler implements IteratorAggregate
 
         if ($this->k > $this->n) {
             throw new Exception("k must be less than or equal to n");
-        }
-    }
-
-    public function count(): float
-    {
-        return binomialCoefficient($this->n, $this->k);
-    }
-
-    public function getIterator(): Traversable
-    {
-        while (!$this->twiddle()) {
-            yield [$this->x, $this->y, $this->z];
         }
     }
 
@@ -137,6 +134,7 @@ final class Twiddler implements IteratorAggregate
             $this->x = 0;
             $this->z = 0;
             $this->y = $j - 1;
+
             return false; // L4
         }
 
@@ -163,6 +161,7 @@ final class Twiddler implements IteratorAggregate
             $this->x = $i - 1;
             $this->y = $k - 1;
             $this->p[$k] = -1;
+
             return false; // L4
         }
 

@@ -1,13 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leinster\Twiddle\Tests;
 
 use Leinster\Twiddle\{BitTwiddler, Exception};
-
-use function Leinster\Twiddle\Functions\{stringTransformer, intTransformer};
-
 use PHPUnit\Framework\TestCase;
+
+use function Leinster\Twiddle\Functions\{intTransformer, stringTransformer};
 
 final class BitTwiddlerTest extends TestCase
 {
@@ -74,7 +74,7 @@ final class BitTwiddlerTest extends TestCase
         $combinations = $bitTwiddler->toArray();
         $this->assertEquals(
             $combinations,
-            array_unique($combinations, SORT_NUMERIC)
+            array_unique($combinations, SORT_NUMERIC),
         );
         $this->assertEquals($bitTwiddler->count(), count($combinations));
     }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
@@ -17,5 +18,6 @@ return RectorConfig::configure()
         privatization: true,
         rectorPreset: true,
         strictBooleans: true,
-        typeDeclarations: true
-    );
+        typeDeclarations: true,
+    )
+;
