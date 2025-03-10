@@ -10,6 +10,10 @@ See the C implementation by Matthew Belmonte (and original license), [[file:src/
 
 Licensed under the [[file:LICENSE][Apache-2.0 license]].
 
+** Build status
+
+[[https://github.com/leinster/twiddle/actions/workflows/php.yml][https://github.com/leinster/twiddle/actions/workflows/php.yml/badge.svg]]
+
 ** Usage
 
 #+name: common-pulled-in-by-noweb
