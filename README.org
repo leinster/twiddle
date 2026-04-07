@@ -170,3 +170,51 @@ printf("%s\n", json_encode($twiddler->toArray()));
 ** See also
 
 [[https://github.com/fabis94/php-twiddle]] is another PHP implementation.
+** Development 
+
+*** Formatting
+Use [[https://github.com/easy-coding-standard/easy-coding-standard][ECS]], [[file:ecs.php::<?php][configuration]]:
+
+#+begin_example
+$ composer lint
+$ vendor/bin/ecs
+#+end_example
+
+Use ~--fix~ to fix the code:
+
+#+begin_example
+$ composer lint:fix
+#+end_$ vendor/bin/ecs --fix
+example
+
+*** Rector
+
+[[file:rector.php::<?php][Configuration]].
+
+#+begin_example
+$ composer rector
+$ vendor/bin/rector process --dry-run
+#+end_example
+
+To apply the changes:
+
+#+begin_example
+$ composer rector:fix
+$ vendor/bin/rector process 
+#+end_example
+
+*** PHPStan
+
+#+begin_example
+$ composer phpstan
+$ vendor/bin/phpstan analyse --level 5 src tests
+#+end_example
+
+
+*** Running tests
+
+#+begin_example
+$ composer test
+$ vendor/bin/phpunit tests
+#+end_example
+

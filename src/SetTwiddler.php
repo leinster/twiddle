@@ -9,17 +9,26 @@ use function Leinster\Twiddle\Functions\identityTransformer;
 // TWIDDLE case (1), generating all combinations of $k out of $n objects. We
 // generate all $k-combinations of the $n length array $set.
 //
-/** @implements \IteratorAggregate<int, mixed[]> */
+/**
+ * @template T
+ * @template R
+ *
+ * @implements \IteratorAggregate<int, R>
+ */
 final readonly class SetTwiddler implements \IteratorAggregate
 {
     private int $n;
 
     private Twiddler $twiddler;
 
+    /**
+     * @var \Closure(T[]): R
+     */
     private \Closure $transformer;
 
     /**
-     * @param mixed[] $set
+     * @param T[]                     $set
+     * @param null|(callable(T[]): R) $transformer
      */
     public function __construct(
         private int $k,
@@ -28,9 +37,15 @@ final readonly class SetTwiddler implements \IteratorAggregate
     ) {
         $this->n = count($set);
         $this->twiddler = new Twiddler($this->n, $this->k);
-        $this->transformer = \Closure::fromCallable(
-            $transformer ?? identityTransformer(),
-        );
+
+        if ($transformer === null) {
+            /** @var (callable(T[]): R) */
+            $finalTransformer = identityTransformer();
+        } else {
+            $finalTransformer = $transformer;
+        }
+
+        $this->transformer = \Closure::fromCallable($finalTransformer);
     }
 
     public function count(): float
@@ -38,6 +53,9 @@ final readonly class SetTwiddler implements \IteratorAggregate
         return $this->twiddler->count();
     }
 
+    /**
+     * @return \Traversable<int, R>
+     */
     public function getIterator(): \Traversable
     {
         $this->twiddler->reset();
@@ -53,7 +71,7 @@ final readonly class SetTwiddler implements \IteratorAggregate
     }
 
     /**
-     * @return mixed[]
+     * @return R[]
      */
     public function toArray(): array
     {

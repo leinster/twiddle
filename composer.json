@@ -19,6 +19,15 @@
     "php": "^8.2",
     "markrogoyski/math-php": "^2.10"
   },
+  "scripts": {
+    "lint": "ecs check",
+    "lint:fix": "ecs check --fix",
+    "rector": "rector process --dry-run",
+    "rector:fix": "rector process",
+    "phpstan": "phpstan analyse --level 9 src tests",
+    "test": "phpunit tests",
+    "all": ["@lint", "@rector", "@phpstan", "@test"]
+  },
   "authors": [
     { "name": "Jonathon Ramsey", "email": "jonathon.ramsey@gmail.com" }
   ]

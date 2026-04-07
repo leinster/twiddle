@@ -52,6 +52,7 @@ final class SetTwiddlerTest extends TestCase
         $this->assertEquals(2, $setTwiddler->count());
         $this->assertEquals([["B"], ["A"]], $setTwiddler->toArray());
         foreach ($setTwiddler as $combination) {
+            \assert(\is_array($combination));
             $this->assertEquals(1, count($combination));
         }
     }
@@ -65,6 +66,7 @@ final class SetTwiddlerTest extends TestCase
             $setTwiddler->toArray(),
         );
         foreach ($setTwiddler as $combination) {
+            \assert(\is_array($combination));
             $this->assertEquals(2, count($combination));
         }
     }
