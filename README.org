@@ -185,7 +185,7 @@ Use ~--fix~ to fix the code:
 #+begin_example
 $ composer lint:fix
 #+end_$ vendor/bin/ecs --fix
-example
+#+end_example
 
 *** Rector
 
