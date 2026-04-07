@@ -17,7 +17,6 @@ return RectorConfig::configure()
         naming: true,
         privatization: true,
         rectorPreset: true,
-        strictBooleans: true,
         typeDeclarations: true,
     )
 ;
